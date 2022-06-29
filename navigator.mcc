@@ -1,0 +1,30 @@
+Application Navigator {
+	Fragment CONFIGURATION_PANEL [11,1,15, false] init;
+	Fragment CONTROLLER [15,20,55, true];
+	Fragment PATH_CALCULATOR [90,50,30, true];
+	Fragment TRAFFIC_EVALUATOR [99,22,22, true];
+	Fragment MAP [25,200,100, true];
+	Fragment NAVIGATOR [110,10,15, true];
+	Fragment NAVIGATION_PANEL [11,30,45, true];
+	Fragment VOICE [5,40,90, true];
+	Fragment SPEED_TRAP_INDICATOR [5,60,100, true];
+	Fragment GPS [5,20,10, false];
+	
+	Structure Connectins [
+		CONFIGURATION_PANEL --> CONTROLLER;
+		CONTROLLER --:: GPS, PATH_CALCULATOR, NAVIGATOR;
+		GPS --> CONTROLLER;
+		PATH_CALCULATOR --:: MAP, TRAFFIC_EVALUATOR, CONTROLLER;
+		TRAFFIC_EVALUATOR --> PATH_CALCULATOR;
+		MAP --> PATH_CALCULATOR;
+		NAVIGATOR --|NAVIGATION_PANEL, CONTROLLER;
+		NAVIGATION_PANEL --|VOICE, SPEED_TRAP_INDICATOR;
+		
+		
+	];
+};
+
+Cloud Cloud_machine [32, Navigator];
+Mobile  Mobile_device[16 , Navigator, 100, 2, 0];
+
+System Network := Cloud_machine | Mobile_device;
